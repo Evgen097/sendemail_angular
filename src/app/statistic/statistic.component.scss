@@ -1,0 +1,80 @@
+.container{
+  min-height: 1200px;
+}
+
+.graybeckground{
+  background-color: #BDBDBD;
+}
+.boldtext{
+  font-weight: bold;
+}
+.full-width {
+  width: 95%
+}
+
+.half-width {
+  width: 45%
+}
+
+.form-size {
+  width: 75%
+}
+
+.main-div{
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form_center{
+  background-color: #cdcdcd;
+  text-align: center;
+  //height: 200px;
+}
+
+.mat-spinner, .mat-progress-bar{
+  margin: auto;
+  text-align: center;
+}
+
+.centerelement{
+  margin: auto;
+  text-align: center;
+}
+
+.mat-progress-bar{
+  text-align: left;
+}
+
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.mat-toolbar{
+  background-color: #1698ee;
+  //margin: auto;
+  width: 35%;
+  color: white;
+  position: absolute;
+  right: 0px;
+  top: 30%;
+  opacity: 0.8;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,61 @@
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px"
+     class="main-div">
+
+  <mat-toolbar color="accent" *ngIf="showMessage">
+    <span>{{showMessage}}</span>
+  </mat-toolbar>
+
+  <mat-list>
+    <!--<h1 matLine> Email send App </h1>-->
+  </mat-list>
+
+
+  <mat-error class="example-card" *ngIf="error">
+    <h3>Error: {{error}}</h3>
+
+  </mat-error>
+
+
+  <div fxFlex fxFlexOffset="20px" class="form-size form_center" *ngIf="query">
+
+    <!--<p>{{ query | json }}</p>-->
+    <!--emails: (6) ["azovgeo@gmail.co", "mail@reactor.com.ua", "support@educaion.ua", "support@education.ua", "ad@education.ua", "partnership@education.ua"]-->
+    <!--emailstatistics: {https://kharkov.info/info/: Array(0), https://kharkov.info/contacts/: Array(0), https://kharkov.info/contacts/info/: Array(0), https://kharkov.info/contact-page/: Array(0), https://kharkov.info/contact-us/: Array(0), …}-->
+    <!--error: null-->
+    <!--fetchemails: true-->
+    <!--message: "Обработка завершена, получено: 15 соответствий"-->
+    <!--query: "землеустройство харьков 123"-->
+    <!--sentmessages: 0-->
+
+    <mat-list fxFlex>
+      <h3>Статистика отправки писем:</h3>
+      <mat-list-item >
+        <p matLine> <span class="boldtext">Поисковый запрос: </span> {{query.query | uppercase}} </p>
+        <p matLine> <span class="boldtext">Отправлено писем:</span> {{query.sentmessages}}</p>
+        <p matLine *ngIf="!query.emails.length"><span class="boldtext">Имейлов не найдено</span></p>
+        <p matLine *ngIf="query.emails.length">Найдено <span class="boldtext"> {{query.emails.length}} </span> имейлов</p>
+        <p matLine> <span class="boldtext">Дата:</span> {{query.date}}</p>
+      </mat-list-item>
+
+      <mat-list-item *ngIf="(query.sentmessages) < (query.emails.length)">
+        <p matLine> <span class="boldtext">Идет отправка писем...</span></p>
+        <p matLine> <span class="boldtext">{{sentEmails}}</span> писем отправлено</p>
+      </mat-list-item>
+      <div>
+        <mat-progress-bar mode="buffer"></mat-progress-bar>
+      </div>
+    </mat-list>
+
+  </div>
+
+
+  <div [hidden]="!!query">
+    <mat-spinner></mat-spinner>
+    <h4>Get data from server...</h4>
+
+  </div>
+
+
+</div>

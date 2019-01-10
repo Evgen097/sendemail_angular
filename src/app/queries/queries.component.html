@@ -1,0 +1,50 @@
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div>
+      <h3 class="centerelement">Поисковые запросы</h3>
+      <hr>
+    </div>
+  </div>
+
+  <div fxFlex  *ngIf="queries">
+    <mat-list>
+      <mat-list-item *ngFor="let query of queries"
+                      appHighlight  [routerLink]="['/query', query.id]"
+                     class="centerelement">
+
+          <h3 matLine>{{query.query | uppercase}}</h3>
+          <p matLine>{{query.message}}</p>
+          <p matLine>Дата создания: {{query.date}}</p>
+          <p *ngIf="query.error" matLine>Error: {{query.error}}</p>
+
+      </mat-list-item>
+
+      </mat-list>
+  </div>
+
+  <mat-error class="example-card" *ngIf="error">
+    <h3>Error: {{error}}</h3>
+    <p>{{error.statusText}}</p>
+    <p>{{error.message}}</p>
+  </mat-error>
+
+  <div [hidden]="queries || error">
+    <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+
+</div>
+
+
+    <!--date: "четверг, 27 декабря 2018 г., 16:44"-->
+    <!--error: null-->
+    <!--id: "1aof46ojq6pyyqr"-->
+    <!--message: "Обработка завершена, получено: 2 соответствий"-->
+    <!--query: "харьков землеустроительные работы1"-->
+
+
+
+
+

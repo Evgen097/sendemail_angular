@@ -1,0 +1,50 @@
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px"
+     class="main-div">
+
+  <mat-list>
+      <!--<h1 matLine> Email send App </h1>-->
+  </mat-list>
+
+  <mat-error class="example-card" *ngIf="errorMessage">
+    <h3>Error: {{errorMessage}}</h3>
+    <p>{{errorMessage.statusText}}</p>
+    <p>{{errorMessage.message}}</p>
+  </mat-error>
+
+
+  <div fxFlex fxFlexOffset="20px" class="form-size form_center" *ngIf="!!showSearch">
+
+    <!--<p>{{ queryForm.value | json }} {{ queryForm.status | json }}</p>-->
+
+    <form novalidate [formGroup]="queryForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="querytext" placeholder="поисковый запрос" type="text" required>
+          <mat-error *ngIf="queryForm.get('querytext').hasError('required') && queryForm.get('querytext').touched">Query is required</mat-error>
+        </mat-form-field>
+      </p>
+
+      <button type="submit" mat-button class="background-primary text-floral-white"
+              [disabled]="queryForm.invalid"
+      >Submit</button>
+    </form>
+
+  </div>
+
+
+  <div [hidden]="!showLoader">
+    <mat-spinner></mat-spinner>
+    <h4>Send data to server...</h4>
+    <!--<h4>Please wait, getting data from Bing Search</h4>-->
+    <!--<h3>about <span>{{timeLeft}}</span> seconds left</h3>-->
+  </div>
+
+  <div *ngIf="showRedirect" class="centerelement">
+    <h4>Please wait, getting data from Bing Search</h4>
+    <h3><span>{{timeLeft}}</span> seconds left</h3>
+  </div>
+
+
+</div>

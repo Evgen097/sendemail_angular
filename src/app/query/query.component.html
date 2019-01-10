@@ -1,0 +1,81 @@
+<div class="container"
+     fxLayout="row"
+     fxLayout.sm="column"
+     fxLayout.xs="column"
+     fxLayoutAlign.gt-md="space-around center"
+     fxLayoutGap="100px"
+     fxLayoutGap.xs="0">
+
+  <div [hidden]="query || error">
+    <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+
+  <mat-error class="example-card" *ngIf="error">
+    <h3>Error: {{error}}</h3>
+    <p>{{error.statusText}}</p>
+    <p>{{error.message}}</p>
+  </mat-error>
+
+
+  <div fxFlex="80" fxLayoutGap="200px" *ngIf="query" >
+    <div fxLayout="column" fxLayoutGap="50px">
+      <h2>Результаты BING поиска:</h2>
+
+      <mat-list fxFlex>
+        <mat-list-item >
+          <p matLine> <span class="boldtext">Поисковый запрос: </span> {{query.query | uppercase}} </p>
+          <p matLine>{{query.message}}</p>
+          <p matLine> <span class="boldtext">Дата:</span> {{query.date}}</p>
+          <p matLine> <span class="boldtext">Отправлено писем:</span> {{query.sentmessages}}</p>
+          <p matLine *ngIf="!query.fetchemails">Поиск имейлов не производился</p>
+          <button type="submit" mat-button style="background-color: red;" class="background-warn text-floral-white" (click)="deleteQuery()">
+            Delete
+          </button>
+        </mat-list-item>
+      </mat-list>
+
+      <h3 matLine *ngIf="query.fetchemails">{{query.fetchemails}} Найдено {{query.emails.length}} почтовых адресов:</h3>
+
+      <mat-list fxFlex *ngIf="query.fetchemails && query.emails.length">
+        <h3 matLine> Нажмите чтобы отправить письмо на все найденные имейлы
+          <button type="submit" mat-button class="background-primary text-floral-white" (click)="sendEmails()">
+            Send
+          </button>
+        </h3>
+
+        <mat-grid-list cols="3" rowHeight="30px"  class="graybeckground">
+          <mat-grid-tile *ngFor="let email of query.emails">
+            {{email}}
+          </mat-grid-tile>
+        </mat-grid-list>
+
+      </mat-list>
+
+
+      <mat-list fxFlex *ngIf="!query.fetchemails || !query.emails.length">
+          <h3 matLine  *ngIf="!fetching"> Нажмите чтобы выполнить поиск почтовых адрессов
+            <button type="submit" mat-button class="background-primary text-floral-white" (click)="fetchEmails()">
+              Submit
+            </button>
+          </h3>
+
+        <div [hidden]="!fetching">
+          <h4>Пожалуйста подождите, идет поиск почтовых адресов, обычно занимает несколько минут</h4>
+          <mat-spinner></mat-spinner>
+        </div>
+
+      </mat-list>
+
+
+      <mat-list fxFlex *ngIf="query.webpages.length" >
+        <h3 matLine> Cтраницы которые соответствуют поисковому запросу: </h3>
+        <mat-list-item *ngFor="let page of query.webpages" class="graybeckground">
+          <p matLine> <a target="_blank" href="{{page.url}}">{{page.name}}</a></p>
+          <p matLine> {{page.snippet}} </p>
+        </mat-list-item>
+      </mat-list>
+
+    </div>
+  </div>
+
+</div>
